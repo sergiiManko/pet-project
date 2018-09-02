@@ -1,7 +1,7 @@
 package com.petproject.app.security;
 
 import com.petproject.app.model.User;
-import com.petproject.app.repository.UserRepository;
+import com.petproject.app.service.user.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,12 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CustomUserDetailsService implements UserDetailsService {
-    private final UserRepository userRepository;
+    private final IUserService userService;
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(final String usernameOrEmail) throws UsernameNotFoundException {
-        final User user = userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
+        final User user = userService.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
                 .orElseThrow(() ->
                         new UsernameNotFoundException("User not found with username or email : " + usernameOrEmail)
                 );
@@ -32,7 +32,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     // This method is used by JWTAuthenticationFilter
     @Transactional
     public UserDetails loadUserById(final Long id) {
-        final User user = userRepository.findById(id).orElseThrow(
+        final User user = userService.findById(id).orElseThrow(
                 () -> new UsernameNotFoundException("User not found with id : " + id));
         return UserPrincipal.create(user);
     }
