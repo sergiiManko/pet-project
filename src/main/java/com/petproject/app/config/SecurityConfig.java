@@ -31,8 +31,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 )
 
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private static final String[] AUTH_WHITELIST = {
+            // -- swagger ui
+            "/swagger-resources/**",
+            "/swagger-ui.html",
+            "/v2/api-docs",
+            "/webjars/**"
+    };
     private final CustomUserDetailsService customUserDetailsService;
-
     private final JwtAuthenticationEntryPoint unauthorizedHandler;
 
     @Autowired
@@ -92,6 +98,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/api/user/checkUsernameAvailability", "/api/user/checkEmailAvailability")
                 .permitAll()
+                .antMatchers(AUTH_WHITELIST).permitAll()
                 .antMatchers(HttpMethod.GET, "/api/app/**", "/api/users/**")
                 .permitAll()
                 .anyRequest()
@@ -99,6 +106,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Add our custom JWT security filter
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-
     }
 }
