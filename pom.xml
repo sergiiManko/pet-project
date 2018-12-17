@@ -27,6 +27,7 @@
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <jsonwebtoken.version>0.9.0</jsonwebtoken.version>
         <swagger.version>2.9.2</swagger.version>
+        <swagger-ui.version>2.9.2</swagger-ui.version>
     </properties>
 
     <dependencies>
@@ -89,6 +90,11 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
             <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger-ui.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
