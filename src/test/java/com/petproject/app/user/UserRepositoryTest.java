@@ -1,4 +1,4 @@
-package com.petproject.app;
+package com.petproject.app.user;
 
 import com.petproject.app.model.User;
 import com.petproject.app.repository.UserRepository;

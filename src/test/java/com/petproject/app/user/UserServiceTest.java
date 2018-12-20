@@ -1,5 +1,6 @@
-package com.petproject.app;
+package com.petproject.app.user;
 
+import com.petproject.app.AppApplication;
 import com.petproject.app.service.user.IUserService;
 import org.junit.Assert;
 import org.junit.Test;
